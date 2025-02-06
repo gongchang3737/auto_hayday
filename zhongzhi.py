@@ -1,14 +1,9 @@
-import pyautogui
 import time
-import xlrd
-import pyperclip
-import random
-import copy
 import cv2
 from plyer import notification
 import os
 from functools import reduce
-from concurrent.futures import ThreadPoolExecutor
+# from concurrent.futures import ThreadPoolExecutor
 import subprocess
 import uiautomator2 as u2
 import numpy as np

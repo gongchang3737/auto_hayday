@@ -6,6 +6,7 @@ import io
 import uiautomator2 as u2
 import cv2
 import numpy as np
+import sqlite3
 # import weditor
 
 def capture_screenshot(adb_path, mode="RawByNc"):
@@ -101,9 +102,34 @@ if __name__ == "__main__":
     # except Exception as e:
     #     print(f"Error: {e}")
 
-    print(15//2)
+    # 连接到 HayDayDB.sqlite 数据库
+    db_path = "HayDayDB.sqlite"  # 请确保该文件在你的 Python 运行目录下
+    conn = sqlite3.connect(db_path)  # 连接数据库
+    cursor = conn.cursor()  # 创建游标对象
+
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    print(cursor.fetchall())
 
 
+    # 1. 获取数据库中的所有表名
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    tables = cursor.fetchall()
+    print("数据库中的表：", tables)
+
+    # 2. 读取某个表（假设表名是 'items'）
+    table_name = "sqlite_sequence"  # 你可以把它改成数据库中实际存在的表
+    cursor.execute(f"SELECT * FROM {table_name};")
+
+    # 3. 获取所有行
+    rows = cursor.fetchall()
+
+    # 4. 打印数据
+    for row in rows:
+        print(row)
+
+    # 5. 关闭数据库连接
+    cursor.close()
+    conn.close()
 
     # # 点击屏幕上的 (500, 1000) 坐标
     # tap_screen(500, 500)
